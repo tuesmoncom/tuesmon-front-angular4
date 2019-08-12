@@ -1,0 +1,41 @@
+form.row((ngSubmit)="onSubmit()", [formGroup]="form", novalidate)
+    fieldset.webhook-service
+        input(
+            type="text",
+            name="name",
+            formControlName="name",
+            [value]="webhook?.get('name')",
+            [placeholder]="'ADMIN.WEBHOOKS.TYPE_NAME' | translate"
+        )
+    .webhook-url
+        .webhook-url-inputs
+            fieldset
+                input(
+                    type="text",
+                    name="url",
+                    data-type="url",
+                    formControlName="url",
+                    [placeholder]="'ADMIN.WEBHOOKS.TYPE_PAYLOAD_URL' | translate",
+                    [value]="webhook?.get('url')"
+                )
+            fieldset
+                input(
+                    type="text",
+                    name="key",
+                    formControlName="key",
+                    [placeholder]="'ADMIN.WEBHOOKS.TYPE_SERVICE_SECRET' | translate",
+                    [value]="webhook?.get('key')"
+                )
+    .webhook-options
+        a.edit-existing(
+            [title]="'ADMIN.WEBHOOKS.SAVE' | translate",
+            (click)="onSubmit()",
+            *tgLoading="'saving-webhook-'+webhook?.get('id')"
+        )
+            tg-svg(svg-icon="icon-save")
+        a.cancel-existing(
+            *ngIf="!hideCancel",
+            [title]="'ADMIN.WEBHOOKS.CANCEL' | translate",
+            (click)="onCancel()",
+        )
+            tg-svg(svg-icon="icon-close")

@@ -1,0 +1,65 @@
+.attachments {
+    margin-bottom: 4rem;
+    .gu-transit {
+        background: $whitish;
+        height: 40px;
+        * {
+            display: none;
+        }
+    }
+    .gu-mirror {
+        opacity: 1;
+        form {
+            background: lighten($primary, 60%);
+            box-shadow: 1px 1px 10px rgba($black, .1);
+            transition: background .2s ease-in;
+        }
+    }
+}
+
+.attachments-empty {
+    @include font-size(large);
+    @include font-type(bold);
+    border: 3px dashed $whitish;
+    color: $gray-light;
+    margin-top: .5rem;
+    padding: 1rem;
+    text-align: center;
+}
+
+.single-attachment {
+    @include font-size(small);
+    background: rgba($white, .9);
+    .attachment-name {
+        @include font-type(bold);
+        padding-right: 1rem;
+        svg {
+            fill: $gray;
+            height: .9rem;
+            margin-right: .25rem;
+            width: .9rem;
+        }
+    }
+    .attachment-size {
+        color: $gray-light;
+    }
+}
+
+.more-attachments {
+    @include font-size(small);
+    border-bottom: 1px solid $gray-light;
+    display: block;
+    padding: 1rem 0 1rem 1rem;
+    span {
+        color: $gray-light;
+    }
+    .more-attachments-num {
+        color: $primary;
+        margin-left: .5rem;
+    }
+    &:hover {
+        background: lighten($primary, 60%);
+        transition: background .2s ease-in;
+    }
+}
+

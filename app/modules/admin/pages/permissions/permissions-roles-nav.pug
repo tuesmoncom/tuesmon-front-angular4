@@ -1,0 +1,20 @@
+section.admin-submenu.admin-submenu-roles(*ngIf="project")
+    nav
+        ul
+            li(*ngFor="let role of project.get('roles')")
+                a((click)="setRole.emit(role)", [class.active]="role == active")
+                  span.single-role {{ role.get('name') }}
+
+        div
+            a.button-gray.add-button(
+                (click)="addingRole = true",
+                *ngIf="!addingRole"
+            )
+                span(
+                    *tgLoading="'creating-role'",
+                    [title]="'ADMIN.SUBMENU_ROLES.TITLE_ACTION_NEW_ROLE' | translate",
+                    translate="ADMIN.SUBMENU_ROLES.ACTION_NEW_ROLE",
+                )
+            form((submit)="create()", [formGroup]="form", *ngIf="addingRole", novalidate)
+                input.new(type="text", formControlName="name", autofocus, (keyup)="manageEsc($event)")
+                tg-field-error([control]="form.controls.name")

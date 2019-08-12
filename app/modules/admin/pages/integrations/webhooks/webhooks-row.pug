@@ -1,0 +1,89 @@
+tg-lightbox(key="webhook.delete-confirm-{{webhook.get('id')}}", *ngIf="webhook")
+    tg-lightbox-close
+    tg-confirm-ask(
+        [title]="'ADMIN.WEBHOOKS.DELETE' | translate",
+        [subtitle]="'NOTIFICATION.ASK_DELETE' | translate",
+        [message]="'ADMIN.WEBHOOKS.WEBHOOK_NAME' | translate:{name: webhook.get('name')}",
+        [loading]="'deleting-webhook-'+webhook.get('id')",
+        (response)="onDeleteConfirm($event)"
+    )
+
+.visualization-mode
+    .row
+        .webhook-service {{ webhook.get('name') }}
+        .webhook-url
+            span {{ webhook.get('url') }}
+            a.show-history.toggle-history(
+                [title]="'ADMIN.WEBHOOKS.ACTION_SHOW_HISTORY_TITLE' | translate",
+                *ngIf="webhook.get('logs_counter') && !webhookLog",
+                translate="ADMIN.WEBHOOKS.ACTION_SHOW_HISTORY",
+                (click)="showHistory()"
+            )
+            a.show-history.toggle-history(
+                [title]="'ADMIN.WEBHOOKS.ACTION_HIDE_HISTORY_TITLE' | translate",
+                *ngIf="webhook.get('logs_counter') && webhookLog",
+                translate="ADMIN.WEBHOOKS.ACTION_HIDE_HISTORY",
+                (click)="hideHistory()"
+            )
+
+        .webhook-options
+            .webhook-options-wrapper
+                a.test-webhook(
+                    [title]="'ADMIN.WEBHOOKS.TEST' | translate",
+                    (click)="onTest()",
+                    *tgLoading="'testing-webhook-'+webhook.get('id')"
+                )
+                    tg-svg(svg-icon="icon-check-empty")
+                a.edit-webhook(
+                    [title]="'ADMIN.WEBHOOKS.EDIT' | translate",
+                    (click)="onEdit()"
+                )
+                    tg-svg(svg-icon="icon-edit")
+                a.delete-webhook(
+                    [title]="'ADMIN.WEBHOOKS.DELETE' | translate",
+                    (click)="onDelete()",
+                )
+                    tg-svg(svg-icon="icon-trash")
+
+    .webhooks-history
+        .history-single-wrapper(*ngFor="let log of webhookLog?.map(enrichLog)")
+            .history-single((click)="detailOpen[log.get('id')] = !detailOpen[log.get('id')]")
+                div
+                    span.history-response-icon(
+                        [class.history-success]="log.get('validStatus')",
+                        [class.history-error]="!log.get('validStatus')",
+                        [title]="log.get('status')"
+                    )
+                    span.history-date {{ log.get('prettyDate') }}
+                a.toggle-log()
+                    tg-svg(svg-icon="icon-arrow-down")
+
+            .history-single-response([class.open]="detailOpen[log.get('id')]")
+                .history-single-request-header
+                    span(translate="ADMIN.WEBHOOKS.REQUEST")
+                    a.resend-request(
+                        href="",
+                        [title]="'ADMIN.WEBHOOKS.RESEND_REQUEST' | translate"
+                    )
+                        tg-svg(svg-icon="icon-reload")
+                        span(translate="ADMIN.WEBHOOKS.RESEND_REQUEST")
+                .history-single-request-body
+                    .response-container
+                        span.response-title(translate="ADMIN.WEBHOOKS.HEADERS")
+                        textarea(
+                            name="headers"
+                        ) {{ log.get('prettySentHeaders') }}
+
+                    .response-container
+                        span.response-title(translate="ADMIN.WEBHOOKS.PAYLOAD")
+                        textarea(
+                            name="payload"
+                        ) {{ log.get('prettySentData') }}
+
+                .history-single-response-header
+                    span(translate="ADMIN.WEBHOOKS.RESPONSE")
+                .history-single-response-body
+                    .response-container
+                        textarea(
+                            name="response-data"
+                        ) {{ log.get('response_data') }}
