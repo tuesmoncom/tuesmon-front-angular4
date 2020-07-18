@@ -140,7 +140,7 @@
     "jquery": "^3.2.1",
     "jquery.flot.tooltip": "git+https://git@github.com/krzysu/flot.tooltip.git",
     "l.js": "git+https://git@github.com/juanfran/l.js.git",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "markdown-it": "^8.3.2",
     "markdown-it-task-lists": "^2.0.1",
     "medium-editor": "^5.23.2",
