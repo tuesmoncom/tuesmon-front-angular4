@@ -153,7 +153,7 @@
     "ngx-infinite-scroll": "^0.5.1",
     "ngx-validators": "^3.0.0",
     "pikaday": "^1.6.1",
-    "prismjs": "^1.6.0",
+    "prismjs": "^1.23.0",
     "pseudomap": "^1.0.2",
     "pug-html-loader": "^1.1.5",
     "pug-loader": "^2.3.0",
